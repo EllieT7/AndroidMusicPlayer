@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/app_crud/app/src/main/res/drawable/customborder.xml" value="0.258" />
-        <entry key="..\:/Android/app_crud/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Android/app_crud/app/src/main/res/layout/layout_item.xml" value="0.67" />
+        <entry key="..\:/Android/app_crud/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Android/app_crud/app/src/main/res/layout/layout_item.xml" value="0.33" />
+        <entry key="..\:/Android/app_crud/app/src/main/res/layout/layout_item2.xml" value="0.33" />
+        <entry key="..\:/Android/app_crud/app/src/main/res/menu/menu_top.xml" value="0.37592592592592594" />
       </map>
     </option>
   </component>

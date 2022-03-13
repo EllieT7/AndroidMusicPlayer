@@ -1,11 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/encabezado"
+        >
+        <LinearLayout
+            android:layout_weight="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bienvenido!"
+                android:textSize="30dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Últimos lanzamientos"
+                android:textSize="20dp"
+                />
+        </LinearLayout>
+        <ImageView
+            android:layout_marginTop="13dp"
+            android:layout_weight="1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/loupe"
+            android:id="@+id/btnBuscar"
+            />
+
+    </LinearLayout>
+
+
+    <!--<in.goodiebag.carouselpicker.CarouselPicker
+    android:id="@+id/carousel"
+    android:layout_width="match_parent"
+    android:layout_height="735dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:background="#DDD"
+    app:items_visible="three" />-->
+    <com.github.islamkhsh.CardSliderViewPager
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/viewPager"
+        android:layout_marginTop="24dp"
+        app:cardSlider_smallScaleFactor="0.9"
+        app:cardSlider_otherPagesWidth="24dp"
+        app:cardSlider_pageMargin="12dp"
+        app:auto_slide_time="5"
+        app:cardSlider_indicator="@id/indicator"
+        android:layout_below="@id/encabezado"/>
+    <com.github.islamkhsh.CardSliderIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/indicator"
+        android:layout_below="@id/viewPager"
+        app:indicatorsToShow="5" />
     <!--
     <TextView
         android:layout_width="wrap_content"
@@ -23,80 +88,64 @@
         android:text="Guardar"
         android:id="@+id/btnGuardarGenero"
         />-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenido!"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Últimos lanzamientos"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:backgroundTint="@color/black"
-        >
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="."
-            android:layout_gravity="center_vertical"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            />
-        <LinearLayout
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Titulo"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Artista"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descripcion"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Precio"
-                />
-        </LinearLayout>
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="."
-            android:layout_gravity="center_vertical"
-            />
-    </LinearLayout>
 
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/indicator"
+        android:id="@+id/space"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Todos los productos"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/productos"
+        android:layout_below="@+id/space"
         />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rvData"
-        />
+        android:layout_below="@id/productos"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/grupoFloat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fab_expandDirection="down"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        app:fab_addButtonColorNormal="#00BCD4"
+        >
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnArtistas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/cantante"
+            app:fab_size="normal"
+            app:fab_colorNormal="#6F45B8"
+            app:fab_colorPressed="#780E8A"
+            />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnGeneros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/microfono"
+            app:fab_size="normal"
+            />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
 
 
 
-</LinearLayout>
+</RelativeLayout>

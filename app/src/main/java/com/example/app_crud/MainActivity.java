@@ -1,19 +1,30 @@
 package com.example.app_crud;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageView;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.github.islamkhsh.CardSliderViewPager;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
+
+import in.goodiebag.carouselpicker.CarouselPicker;
 
 public class MainActivity extends AppCompatActivity {
     Button btnAgregarGenero;
@@ -22,6 +33,37 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Album> listaAlbumes;
     Adaptador adaptador;
     RecyclerView rvlista;
+    CarouselPicker carouselPicker;
+    ImageView btnBuscar;
+    FloatingActionsMenu grupoBotones;
+    FloatingActionButton fabArtista, fabGenero;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_top, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.mnuAlta:
+                //Intent invoca = new Intent(this, Alta.class);
+                //startActivity(invoca);
+                break;
+            case R.id.mnuLista:
+                //Intent invoca1 = new Intent(this, Lista.class);
+                //startActivity(invoca1);
+                break;
+
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +71,53 @@ public class MainActivity extends AppCompatActivity {
         listaAlbumes = new ArrayList<>();
         adaptador = new Adaptador(listaAlbumes);
         rvlista = findViewById(R.id.rvData);
+        btnBuscar = findViewById(R.id.btnBuscar);
+        grupoBotones = findViewById(R.id.grupoFloat);
+        fabArtista = findViewById(R.id.btnArtistas);
+        fabGenero = findViewById(R.id.btnGeneros);
+
         cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this,2));
+        /*carouselPicker = (CarouselPicker) findViewById(R.id.carousel);
+        List<CarouselPicker.PickerItem> mixItems = new ArrayList<>();
+        mixItems.add(new CarouselPicker.TextItem("One",20));
+        mixItems.add(new CarouselPicker.DrawableItem(R.mipmap.ic_launcher_round));
+        mixItems.add(new CarouselPicker.TextItem("two",20));
+        mixItems.add(new CarouselPicker.DrawableItem(R.mipmap.ic_launcher));
+        CarouselPicker.CarouselViewAdapter mixAdapter = new CarouselPicker.CarouselViewAdapter(this, mixItems,0);
+        carouselPicker.setAdapter(mixAdapter);*/
+
+        //view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                miAlerta();
+            }
+        });
+
+        fabArtista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //mostrarFragmentArtistas();
+                System.out.println("Artista");
+                grupoBotones.collapse();
+            }
+        });
+        fabGenero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Genero");
+                grupoBotones.collapse();
+            }
+        });
+    try {
+        CardSliderViewPager cardSliderViewPager = (CardSliderViewPager) findViewById(R.id.viewPager);
+        cardSliderViewPager.setAdapter(new AlbumCentralAdapter(listaAlbumes));
+    }catch (Exception e){
+        System.out.println(e.getStackTrace());
+    }
+
         /*
         //btnAgregarGenero = findViewById(R.id.btnGuardarGenero);
         //etDescripcion = findViewById(R.id.etDescripcion);
@@ -67,5 +153,24 @@ public class MainActivity extends AppCompatActivity {
         listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
         listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
 
+    }
+    void miAlerta(){
+        AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+        alerta.setTitle("TITULO");
+        alerta.setMessage("Mensaje de la alerta");
+        alerta.setCancelable(false);    //modal(no se puede salir sin presionar el boton)
+        alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alerta.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alerta.show();
     }
 }
