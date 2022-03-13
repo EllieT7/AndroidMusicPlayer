@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnBuscar;
     FloatingActionsMenu grupoBotones;
     FloatingActionButton fabArtista, fabGenero;
+    ArtistasFragment artistasFragment;
+    GenerosFragment generosFragment;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
         grupoBotones = findViewById(R.id.grupoFloat);
         fabArtista = findViewById(R.id.btnArtistas);
         fabGenero = findViewById(R.id.btnGeneros);
-
+        artistasFragment = new ArtistasFragment();
+        generosFragment = new GenerosFragment();
         cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this,2));
@@ -102,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 //mostrarFragmentArtistas();
                 System.out.println("Artista");
                 grupoBotones.collapse();
+                getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, artistasFragment).commit();
             }
         });
         fabGenero.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 System.out.println("Genero");
                 grupoBotones.collapse();
+                getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, generosFragment).commit();
             }
         });
     try {

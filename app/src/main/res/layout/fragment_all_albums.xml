@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ArtistasFragment"
+    tools:context=".AllAlbumsFragment"
     android:background="@color/white"
-    android:paddingLeft="20dp"
+
     android:orientation="vertical">
 
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-
+        android:paddingLeft="20dp"
         >
         <Button
             android:id="@+id/btnAtras"
@@ -25,17 +25,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Artistas"
+            android:text="Todos los albumes"
             android:textSize="30dp"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvArtistas"
-        android:layout_width="330dp"
+        android:id="@+id/rvAllAlbum"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
         />
 
 

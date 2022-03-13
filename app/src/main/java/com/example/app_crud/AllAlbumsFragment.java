@@ -14,17 +14,16 @@ import android.widget.Button;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ArtistasFragment#newInstance} factory method to
+ * Use the {@link AllAlbumsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ArtistasFragment extends Fragment {
+public class AllAlbumsFragment extends Fragment {
     private RecyclerView rvlista;
-    private ArrayList<Artista> listaArtistas;
-    private AdaptadorArtistas adaptador;
+    private ArrayList<Album> listaAlbum;
+    private Adaptador adaptador;
     Button btnAtras;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -36,7 +35,7 @@ public class ArtistasFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ArtistasFragment() {
+    public AllAlbumsFragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +45,11 @@ public class ArtistasFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ArtistasFragment.
+     * @return A new instance of fragment AllAlbumsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ArtistasFragment newInstance(String param1, String param2) {
-        ArtistasFragment fragment = new ArtistasFragment();
+    public static AllAlbumsFragment newInstance(String param1, String param2) {
+        AllAlbumsFragment fragment = new AllAlbumsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,19 +64,15 @@ public class ArtistasFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        View vista = inflater.inflate(R.layout.fragment_artistas, container, false);
-        listaArtistas = new ArrayList<>();
-        adaptador = new AdaptadorArtistas(listaArtistas);
-        rvlista = vista.findViewById(R.id.rvArtistas);
+        View vista = inflater.inflate(R.layout.fragment_all_albums, container, false);
+        listaAlbum = new ArrayList<>();
+        adaptador = new Adaptador(listaAlbum);
+        rvlista = vista.findViewById(R.id.rvAllAlbum);
         btnAtras = vista.findViewById(R.id.btnAtras);
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,15 +84,21 @@ public class ArtistasFragment extends Fragment {
         });
         cargaData();
         rvlista.setAdapter(adaptador);
-        rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),1));
+        rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),2));
+
         return vista;
     }
-
     void cargaData(){
         ArrayList<Genero> generos = new ArrayList<>();
-        listaArtistas.add(new Artista("BTS","bonitos"));
-        listaArtistas.add(new Artista("Twenty One Pilots","bonitos"));
-        listaArtistas.add(new Artista("Melanie Martinez","bonita"));
+        java.util.Date utilDate = new java.util.Date();
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
+        listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),"src"));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
+        listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),"src"));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
 
     }
 }

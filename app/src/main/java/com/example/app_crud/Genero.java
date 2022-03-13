@@ -29,6 +29,10 @@ public class Genero {
         this.descripcion = descripcion;
     }
 
+    public int getCantidad(){
+        return 1;
+    }
+
     @Override
     public String toString() {
         return "Genero{" +
