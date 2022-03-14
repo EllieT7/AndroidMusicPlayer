@@ -82,6 +82,17 @@ public class MainActivity extends AppCompatActivity {
         cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this,2));
+        rvlista.addOnItemTouchListener(new RecyclerTouchListener(this, rvlista, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, new DetalleAlbumFragment()).commit();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
         /*carouselPicker = (CarouselPicker) findViewById(R.id.carousel);
         List<CarouselPicker.PickerItem> mixItems = new ArrayList<>();
         mixItems.add(new CarouselPicker.TextItem("One",20));
