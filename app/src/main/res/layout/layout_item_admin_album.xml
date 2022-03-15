@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170dp"
+    android:layout_height="220dp"
+    android:layout_margin="15dp"
+    android:orientation="vertical"
+    android:background="@drawable/customborder"
+    >
+    <Button
+        android:id="@+id/btnEditarAlbum"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+
+        android:backgroundTint="#8BC34A"
+        android:layout_toLeftOf="@+id/btnEliminarAlbum"
+        />
+
+    <Button
+        android:id="@+id/btnEliminarAlbum"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="6dp"
+        android:backgroundTint="#E91E63" />
+
+    <ImageView
+        android:id="@+id/ivFoto"
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/ic_launcher" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_below="@id/ivFoto"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TITULO"
+            android:layout_gravity="left"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvTitulo"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artista"
+                android:layout_gravity="left"
+                android:textSize="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="5"
+                android:id="@+id/tvArtista"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio$"
+                android:textSize="12dp"
+                android:id="@+id/tvPrecio"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="100dp"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/customborder2"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="10dp"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_weight="3"
+        android:layout_marginLeft="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:id="@+id/tvNombre"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripcion"
+            android:id="@+id/tvDescripcion"
+            />
+    </LinearLayout>
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/btnEditarArtista"
+        android:backgroundTint="#60B864"
+        />
+    <Button
+       android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/btnEliminarArtista"
+        android:backgroundTint="#E67D75"
+        />
+
+
+
+
+
+</LinearLayout>
