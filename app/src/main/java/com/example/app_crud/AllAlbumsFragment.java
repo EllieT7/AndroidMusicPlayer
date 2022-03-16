@@ -89,6 +89,7 @@ public class AllAlbumsFragment extends Fragment {
         return vista;
     }
     void cargaData(){
+        /*
         ArrayList<Genero> generos = new ArrayList<>();
         java.util.Date utilDate = new java.util.Date();
         listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
@@ -99,6 +100,6 @@ public class AllAlbumsFragment extends Fragment {
         listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),null));
         listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
         listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-
+*/
     }
 }

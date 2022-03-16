@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class Helper extends SQLiteOpenHelper {
-    static final String dataBase = "base1";
+    static final String dataBase = "base3";
     static final int verDB = 1;
 
     public Helper(@Nullable Context context) {
@@ -18,9 +18,7 @@ public class Helper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //Tabla album
-        sqLiteDatabase.execSQL("CREATE TABLE album (id_album integer NOT NULL CONSTRAINT album_pk PRIMARY KEY AUTOINCREMENT,nombre varchar(100) NOT NULL,f_lanzamiento date NOT NULL,precio float NOT NULL, src BLOB, artista_id_artista integer NOT NULL,CONSTRAINT album_artista FOREIGN KEY (artista_id_artista) REFERENCES artista (id_artista));");
-        //Tabla album_genero
-        sqLiteDatabase.execSQL("CREATE TABLE album_genero (id_ag integer NOT NULL CONSTRAINT album_genero_pk PRIMARY KEY AUTOINCREMENT,album_id_album integer NOT NULL,genero_id_genero integer NOT NULL,CONSTRAINT album_genero_album FOREIGN KEY (album_id_album)REFERENCES album (id_album),CONSTRAINT album_genero_genero FOREIGN KEY (genero_id_genero)REFERENCES genero (id_genero));");
+        sqLiteDatabase.execSQL("CREATE TABLE album (id_album integer NOT NULL CONSTRAINT album_pk PRIMARY KEY AUTOINCREMENT, nombre varchar(100) NOT NULL,  f_lanzamiento date NOT NULL,precio float NOT NULL, src blob NOT NULL, artista_id_artista integer NOT NULL, genero_id_genero integer NOT NULL, CONSTRAINT album_artista FOREIGN KEY (artista_id_artista) REFERENCES artista (id_artista), CONSTRAINT album_genero FOREIGN KEY (genero_id_genero) REFERENCES genero (id_genero));");
         //Tabla artista
         sqLiteDatabase.execSQL("CREATE TABLE artista (id_artista integer NOT NULL CONSTRAINT artista_pk PRIMARY KEY AUTOINCREMENT,nombre varchar(100) NOT NULL,descripcion varchar(250) NOT NULL);");
         //Tabla cancion

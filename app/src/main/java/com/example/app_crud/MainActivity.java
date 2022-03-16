@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     void cargaData(){
+        /*
         ArrayList<Genero> generos = new ArrayList<>();
         java.util.Date utilDate = new java.util.Date();
         listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         listaAlbumes.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),null));
         listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
         listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-
+*/
     }
     void miAlerta(){
         AlertDialog.Builder alerta = new AlertDialog.Builder(this);

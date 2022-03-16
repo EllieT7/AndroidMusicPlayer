@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class AdminArtistaFragment extends Fragment {
     private ArrayList<Artista> listaArtistas;
     private AdaptadorAdminArtistas adaptador;
     Button btnAtras, btnAgregarArtista;
+    private Controlador controlador;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -72,6 +74,8 @@ public class AdminArtistaFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_admin_artista, container, false);
         listaArtistas = new ArrayList<>();
+        controlador = new Controlador(getContext());
+        listaArtistas = controlador.readAllArtistas();
         adaptador = new AdaptadorAdminArtistas(listaArtistas);
         rvlista = vista.findViewById(R.id.rvArtistasAdmin);
         btnAtras = vista.findViewById(R.id.btnAtras);
@@ -84,7 +88,7 @@ public class AdminArtistaFragment extends Fragment {
             }
         });
 
-        cargaData();
+
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),1));
         btnAgregarArtista = vista.findViewById(R.id.btnAgregarArtista);
@@ -93,8 +97,8 @@ public class AdminArtistaFragment extends Fragment {
             public void onClick(View view) {
                 View subView = LayoutInflater.from(getContext()).inflate(R.layout.layout_add_artista, null);
                 final EditText etNombre, etDescripcion;
-                etNombre = subView.findViewById(R.id.etAddNombreAlbum);
-                etDescripcion = subView.findViewById(R.id.etAddDescripcionAlbum);
+                etNombre = subView.findViewById(R.id.etAddNombreArtista);
+                etDescripcion = subView.findViewById(R.id.etAddDescripcionArtista);
 
                 AlertDialog.Builder ale =new  AlertDialog.Builder(getContext());
                 ale.setTitle("Nuevo artista");
@@ -103,15 +107,14 @@ public class AdminArtistaFragment extends Fragment {
                 ale.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                    /*objProd.setNombreProducto(etNombre.getText().toString());
-                    objProd.setCostoUnitario(Float.parseFloat(etCosto.getText().toString()));
-                    long res = controlador.cambioProducto(objProd);
-                    if(res < 0){
-                        Toast.makeText(getApplicationContext(),"Error en el cambio", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(),"succes, exito en  e cambio "+res, Toast.LENGTH_LONG).show();
-                        refrescarListaDeProductos();
-                    }*/
+                        Artista artista = new Artista(etNombre.getText().toString(), etDescripcion.getText().toString());
+                        long res = controlador.createArtista(artista);
+                        if(res < 0){
+                            Toast.makeText(getActivity().getApplicationContext(),"Error en el registro del artista 😞", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getActivity().getApplicationContext(),"Guardado correctamente 🥳 "+res, Toast.LENGTH_LONG).show();
+                            refrescarListaDeArtistas();
+                        }
                     }
                 });
 
@@ -128,11 +131,15 @@ public class AdminArtistaFragment extends Fragment {
 
         return vista;
     }
-    void cargaData(){
-        ArrayList<Genero> generos = new ArrayList<>();
-        listaArtistas.add(new Artista("BTS","bonitos"));
-        listaArtistas.add(new Artista("Twenty One Pilots","bonitos"));
-        listaArtistas.add(new Artista("Melanie Martinez","bonita"));
 
+    public void refrescarListaDeArtistas() {
+
+        System.out.println("100");
+        if (adaptador == null) return;
+        System.out.println("200");
+        listaArtistas = controlador.readAllArtistas();
+        adaptador.setLista(listaArtistas);
+        adaptador.notifyDataSetChanged();
+        System.out.println("300");
     }
 }

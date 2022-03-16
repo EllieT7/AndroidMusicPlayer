@@ -46,4 +46,12 @@ public class AdaptadorAdminGeneros extends RecyclerView.Adapter<AdaptadorAdminGe
 
         }
     }
+
+    public ArrayList<Genero> getLista() {
+        return lista;
+    }
+
+    public void setLista(ArrayList<Genero> lista) {
+        this.lista = lista;
+    }
 }

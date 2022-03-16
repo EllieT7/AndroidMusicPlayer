@@ -35,9 +35,6 @@ public class Genero {
 
     @Override
     public String toString() {
-        return "Genero{" +
-                "idGenero=" + idGenero +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
+        return descripcion;
     }
 }

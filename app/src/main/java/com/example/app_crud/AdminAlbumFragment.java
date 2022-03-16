@@ -1,8 +1,10 @@
 package com.example.app_crud;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +28,7 @@ public class AdminAlbumFragment extends Fragment {
     private ArrayList<Album> listaAlbum;
     private AdaptadorAdminAlbums adaptador;
     Button btnAtras, btnAgregarAlbum;
+    Controlador controlador;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,11 +70,17 @@ public class AdminAlbumFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_admin_album, container, false);
-        listaAlbum = new ArrayList<>();
+        controlador = new Controlador(getContext());
+        try {
+            listaAlbum = controlador.readAllAlbum();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         adaptador = new AdaptadorAdminAlbums(listaAlbum);
         rvlista = vista.findViewById(R.id.rvAllAlbumAdmin);
         btnAtras = vista.findViewById(R.id.btnAtras);
@@ -82,7 +92,6 @@ public class AdminAlbumFragment extends Fragment {
 
             }
         });
-        cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),2));
         btnAgregarAlbum = vista.findViewById(R.id.btnAgregarAlbum);
@@ -95,17 +104,5 @@ public class AdminAlbumFragment extends Fragment {
         });
         return vista;
     }
-    void cargaData(){
-        ArrayList<Genero> generos = new ArrayList<>();
-        java.util.Date utilDate = new java.util.Date();
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),null));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),null));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
 
-    }
 }

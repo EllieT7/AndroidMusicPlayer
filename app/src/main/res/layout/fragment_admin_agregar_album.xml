@@ -26,129 +26,197 @@
             android:text="Agregar album"
             android:layout_marginTop="30dp"
             android:textSize="30dp"
+            android:layout_marginBottom="15dp"
             />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/Informacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
         android:layout_below="@id/Encabezado"
-        android:id="@+id/Informacion"
-        >
+        android:layout_marginLeft="30dp">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             >
+
             <Button
+                android:id="@+id/btnAgregarFoto"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
-                android:id="@+id/btnAgregarFoto"
-                />
+                android:layout_marginLeft="110dp"
+                android:layout_marginTop="5dp" />
 
-            <ImageView
-                android:id="@+id/imgPortada"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@mipmap/ic_launcher_round" />
+            <RelativeLayout
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:background="#CFD6D0">
+
+                <ImageView
+                    android:id="@+id/imgPortada"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_launcher_round" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginLeft="15dp"
-            >
+            android:layout_marginRight="35dp"
+            android:orientation="vertical">
+
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre :"
-            android:textSize="17dp"
-            />
-            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="*nombre"
+                android:text="Nombre :"
+                android:textSize="17dp" />
+
+            <EditText
                 android:id="@+id/etNombreAlbum"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="*nombre" />
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Artista: "
-                    android:textSize="17dp"
-                    />
+                    android:textSize="17dp" />
+
                 <Spinner
                     android:id="@+id/spinnerArtista"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Género(s): "
-                    android:textSize="17dp"
-                    />
+                    android:textSize="17dp" />
+
                 <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/spinnerGenero"
+                    android:layout_width="97dp"
+                    android:layout_height="wrap_content"
+
                     />
-
-
             </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*genero"
-                android:id="@+id/tvDetalleGenero"
-                />
+
+
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/Informacion"
+        android:id="@+id/infoExtra1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de lanzamiento: "
+            android:textSize="17dp" />
+
+        <EditText
+            android:id="@+id/etPlannedDate"
+            android:hint="fecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:maxLines="1" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/infoExtra1"
+        android:id="@+id/infoExtra2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio: "
+            android:textSize="17dp" />
+
+        <EditText
+            android:hint="precio"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:id="@+id/etPrecioAlbum"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bs."
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/Informacion"
+        android:layout_below="@id/infoExtra2"
         >
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tracklist"
-            android:textSize="19dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="25dp"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnAgregarCancion"
-            />
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tracklist"
+                android:textSize="19dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                />
+            <Button
+                android:layout_marginTop="25dp"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnAgregarCancion"
+                android:layout_marginLeft="240dp"
+
+                />
+        </LinearLayout>
+
         <ListView
+            android:id="@+id/lvCancionesAgregadas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:id="@+id/lvCancionesAgregadas"
-            />
+            android:layout_marginRight="25dp" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnAdminGuardar"
+        android:id="@+id/btnAdminGuardarAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

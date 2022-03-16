@@ -8,11 +8,11 @@ public class Album {
     private String nombre;
     private Date fLanzamiento;
     private float precio;
-    private ArrayList<Genero> generos;
+    private Genero generos;
     private Artista artista;
     private byte[] src;
 
-    public Album(int idAlbum, String nombre, Date fLanzamiento, float precio, ArrayList<Genero> generos, Artista artista, byte[] src) {
+    public Album(int idAlbum, String nombre, Date fLanzamiento, float precio,Genero generos, Artista artista, byte[] src) {
         this.idAlbum = idAlbum;
         this.nombre = nombre;
         this.fLanzamiento = fLanzamiento;
@@ -22,7 +22,7 @@ public class Album {
         this.src = src;
     }
 
-    public Album(String nombre, Date fLanzamiento, float precio, ArrayList<Genero> generos, Artista artista, byte[] src) {
+    public Album(String nombre, Date fLanzamiento, float precio, Genero generos, Artista artista, byte[] src) {
         this.nombre = nombre;
         this.fLanzamiento = fLanzamiento;
         this.precio = precio;
@@ -77,5 +77,13 @@ public class Album {
 
     public void setSrc(byte[] src) {
         this.src = src;
+    }
+
+    public Genero getGeneros() {
+        return generos;
+    }
+
+    public void setGeneros(Genero generos) {
+        this.generos = generos;
     }
 }

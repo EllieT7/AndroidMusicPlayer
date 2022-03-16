@@ -50,4 +50,12 @@ public class AdaptadorAdminArtistas extends RecyclerView.Adapter<AdaptadorAdminA
 
         }
     }
+
+    public ArrayList<Artista> getLista() {
+        return lista;
+    }
+
+    public void setLista(ArrayList<Artista> lista) {
+        this.lista = lista;
+    }
 }

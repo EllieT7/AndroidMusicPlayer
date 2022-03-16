@@ -21,7 +21,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/etAddNombreAlbum"
+            android:id="@+id/etAddNombreArtista"
             android:hint="nombre"
             android:textSize="25dp"
             android:layout_weight="1"
@@ -43,7 +43,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/etAddDescripcionAlbum"
+            android:id="@+id/etAddDescripcionArtista"
             android:hint="descripcion"
             android:textSize="25dp"
             android:layout_weight="1"

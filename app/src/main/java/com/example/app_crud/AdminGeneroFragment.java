@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class AdminGeneroFragment extends Fragment {
     private ArrayList<Genero> listaGeneros;
     private AdaptadorAdminGeneros adaptador;
     Button btnAtras, btnAgregarGenero;
+    private Controlador controlador;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,6 +75,8 @@ public class AdminGeneroFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_admin_genero, container, false);
         listaGeneros = new ArrayList<>();
+        controlador = new Controlador(getContext());
+        listaGeneros = controlador.readAllGeneros();
         adaptador = new AdaptadorAdminGeneros(listaGeneros);
         rvlista = vista.findViewById(R.id.rvGenerosAdmin);
         btnAtras = vista.findViewById(R.id.btnAtras);
@@ -84,7 +88,6 @@ public class AdminGeneroFragment extends Fragment {
 
             }
         });
-        cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),1));
         rvlista.addOnItemTouchListener(new RecyclerTouchListener(this.getContext(), rvlista, new RecyclerTouchListener.ClickListener() {
@@ -98,13 +101,14 @@ public class AdminGeneroFragment extends Fragment {
 
             }
         }));
+
         btnAgregarGenero = vista.findViewById(R.id.btnAgregarGenero);
         btnAgregarGenero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View subView = LayoutInflater.from(getContext()).inflate(R.layout.layout_add_genero, null);
-                final EditText etNombre;
-                etNombre = subView.findViewById(R.id.etDescGenero);
+                final EditText etNombreGenero;
+                etNombreGenero = subView.findViewById(R.id.etDescGenero);
 
                 AlertDialog.Builder ale =new  AlertDialog.Builder(getContext());
                 ale.setTitle("Nuevo género");
@@ -113,15 +117,14 @@ public class AdminGeneroFragment extends Fragment {
                 ale.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                    /*objProd.setNombreProducto(etNombre.getText().toString());
-                    objProd.setCostoUnitario(Float.parseFloat(etCosto.getText().toString()));
-                    long res = controlador.cambioProducto(objProd);
+                    Genero genero = new Genero(etNombreGenero.getText().toString());
+                    long res = controlador.createGenero(genero);
                     if(res < 0){
-                        Toast.makeText(getApplicationContext(),"Error en el cambio", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(),"Error en el registro del género 😞", Toast.LENGTH_LONG).show();
                     }else{
-                        Toast.makeText(getApplicationContext(),"succes, exito en  e cambio "+res, Toast.LENGTH_LONG).show();
-                        refrescarListaDeProductos();
-                    }*/
+                        Toast.makeText(getActivity().getApplicationContext(),"Guaradado correctamente 🥳 "+res, Toast.LENGTH_LONG).show();
+                        refrescarListaDeGeneros();
+                    }
                     }
                 });
 
@@ -137,10 +140,15 @@ public class AdminGeneroFragment extends Fragment {
         });
         return vista;
     }
-    void cargaData(){
-        listaGeneros.add(new Genero("POP"));
-        listaGeneros.add(new Genero("ROCK"));
-        listaGeneros.add(new Genero("KPOP"));
-        listaGeneros.add(new Genero("INDIE"));
+
+    public void refrescarListaDeGeneros() {
+
+        System.out.println("100");
+        if (adaptador == null) return;
+        System.out.println("200");
+        listaGeneros = controlador.readAllGeneros();
+        adaptador.setLista(listaGeneros);
+        adaptador.notifyDataSetChanged();
+        System.out.println("300");
     }
 }

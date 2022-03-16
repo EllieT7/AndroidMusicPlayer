@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,14 +33,14 @@ public class Controlador {
         SQLiteDatabase sql = helper.getWritableDatabase();
         ContentValues valInsert = new ContentValues();
         valInsert.put("nombre", album.getNombre());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //Dando formato
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //Dando formato
         valInsert.put("f_lanzamiento", dateFormat.format(album.getfLanzamiento()));
         valInsert.put("precio", album.getPrecio());
-        valInsert.put("artista_id_artista", album.getArtista().getIdArtista());
         valInsert.put("src",album.getSrc());
+        valInsert.put("artista_id_artista", album.getArtista().getIdArtista());
+        valInsert.put("genero_id_genero", album.getGeneros().getIdGenero());
         return sql.insert("album",null,valInsert);
 
-        //TODO insertar datos en album_genero
 
     }
 
@@ -91,10 +94,11 @@ public class Controlador {
         return listaGeneros;
     }
 
-    public ArrayList<Album> readAlbum() throws ParseException {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ArrayList<Album> readAllAlbum() throws ParseException {
         ArrayList<Album> listaAlbumes = new ArrayList<>();
         SQLiteDatabase sql = helper.getReadableDatabase();
-        String [] columnasConsultadas = {"id_album", "nombre", "f_lanzamiento", "precio","artista_id_artista", "src"};
+        String [] columnasConsultadas = {"id_album", "nombre", "f_lanzamiento", "precio","src","artista_id_artista","genero_id_genero"};
         Cursor cursor = sql.query(
                 "album",
                 columnasConsultadas,
@@ -116,13 +120,16 @@ public class Controlador {
             int id = cursor.getInt(0);
             String nombre = cursor.getString(1);
             String stringDate = cursor.getString(2);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date fecha = (Date) dateFormat.parse(stringDate);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            java.util.Date fechaUtil = dateFormat.parse(stringDate);
+            java.sql.Date fecha = new Date(fechaUtil.getTime());
             Float precio = cursor.getFloat(3);
-            int idArtista = cursor.getInt(4);
-            //byte[] src="";
-            //Album album = new Album(id,nombre,fecha,precio,getListaGeneros(id), getArtistaAlbum(idArtista), src);
-            //listaAlbumes.add(album);
+            byte[] src= cursor.getBlob(4);
+            int idArtista = cursor.getInt(5);
+            int idGenero = cursor.getInt(6);
+
+            Album album = new Album(id,nombre,fecha,precio,getGenero(idGenero), getArtistaAlbum(idArtista), src);
+            listaAlbumes.add(album);
         }while(cursor.moveToNext());
         cursor.close();
         return listaAlbumes;
@@ -151,26 +158,90 @@ public class Controlador {
     }
 
     //Busca la lista de generos que pertenecen al album
-    public ArrayList<Genero> getListaGeneros(int idAlbum){
+    public  Genero getGenero(int idGenero){
+        Genero genero = null;
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        Cursor cursor = sql.rawQuery("select * from genero where id_genero = "+idGenero,null);
+        if(cursor==null){
+            return genero;
+        }
+        if(!cursor.moveToFirst()){
+            return genero;
+        }
+        do{
+            int id = cursor.getInt(0);
+            String descripcion = cursor.getString(1);
+            genero = new Genero(id, descripcion);
+        }while(cursor.moveToNext());
+        cursor.close();
+        return genero;
+    }
+
+    //Leer todos los generos
+    public ArrayList<Genero> readAllGeneros(){
         ArrayList<Genero> listaGeneros = new ArrayList<>();
         SQLiteDatabase sql = helper.getReadableDatabase();
-        Cursor cursor = sql.rawQuery("select genero.id_genero, genero.descripcion from genero, album_genero where genero.id_genero = album_genero.genero_id_genero and album_id_album = "+idAlbum,null);
+        String [] columnasConsultadas = {"id_genero", "descripcion"};
+        Cursor cursor = sql.query(
+                "genero",
+                columnasConsultadas,
+                null,
+                null,
+                null,
+                null,
+                "id_genero"
+        );
+
         if(cursor==null){
             return listaGeneros;
         }
         if(!cursor.moveToFirst()){
             return listaGeneros;
         }
+
         do{
             int id = cursor.getInt(0);
             String descripcion = cursor.getString(1);
-            Genero genero = new Genero(id, descripcion);
+
+            Genero genero = new Genero(id,descripcion);
             listaGeneros.add(genero);
         }while(cursor.moveToNext());
         cursor.close();
         return listaGeneros;
     }
+    //Leer todos los artistas
+    public ArrayList<Artista> readAllArtistas(){
+        ArrayList<Artista> listaArtista= new ArrayList<>();
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        String [] columnasConsultadas = {"id_artista", "nombre","descripcion"};
+        Cursor cursor = sql.query(
+                "artista",
+                columnasConsultadas,
+                null,
+                null,
+                null,
+                null,
+                "nombre"
+        );
 
+        if(cursor==null){
+            return listaArtista;
+        }
+        if(!cursor.moveToFirst()){
+            return listaArtista;
+        }
+
+        do{
+            int id = cursor.getInt(0);
+            String nombre = cursor.getString(1);
+            String descripcion = cursor.getString(2);
+
+            Artista  artista = new Artista(id, nombre, descripcion);
+            listaArtista.add(artista);
+        }while(cursor.moveToNext());
+        cursor.close();
+        return listaArtista;
+    }
     //Delete
     public int deleteGenero(Genero generoAEliminar){
         SQLiteDatabase baseDeDatos = helper.getWritableDatabase();
@@ -178,5 +249,6 @@ public class Controlador {
         String[] argumento = {String.valueOf(generoAEliminar.getIdGenero())};
         return baseDeDatos.delete("genero",campo, argumento);
     }
+
 
 }
