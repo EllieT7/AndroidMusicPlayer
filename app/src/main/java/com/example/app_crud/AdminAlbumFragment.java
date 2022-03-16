@@ -98,14 +98,14 @@ public class AdminAlbumFragment extends Fragment {
     void cargaData(){
         ArrayList<Genero> generos = new ArrayList<>();
         java.util.Date utilDate = new java.util.Date();
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
-        listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),"src"));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
-        listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),"src"));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
-        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),"src"));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
+        listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),null));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
+        listaAlbum.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),null));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
+        listaAlbum.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
 
     }
 }

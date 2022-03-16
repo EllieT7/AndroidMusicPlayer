@@ -10,9 +10,9 @@ public class Album {
     private float precio;
     private ArrayList<Genero> generos;
     private Artista artista;
-    private String src;
+    private byte[] src;
 
-    public Album(int idAlbum, String nombre, Date fLanzamiento, float precio, ArrayList<Genero> generos, Artista artista, String src) {
+    public Album(int idAlbum, String nombre, Date fLanzamiento, float precio, ArrayList<Genero> generos, Artista artista, byte[] src) {
         this.idAlbum = idAlbum;
         this.nombre = nombre;
         this.fLanzamiento = fLanzamiento;
@@ -22,7 +22,7 @@ public class Album {
         this.src = src;
     }
 
-    public Album(String nombre, Date fLanzamiento, float precio, ArrayList<Genero> generos, Artista artista, String src) {
+    public Album(String nombre, Date fLanzamiento, float precio, ArrayList<Genero> generos, Artista artista, byte[] src) {
         this.nombre = nombre;
         this.fLanzamiento = fLanzamiento;
         this.precio = precio;
@@ -71,11 +71,11 @@ public class Album {
         this.artista = artista;
     }
 
-    public String getSrc() {
+    public byte[] getSrc() {
         return src;
     }
 
-    public void setSrc(String src) {
+    public void setSrc(byte[] src) {
         this.src = src;
     }
 }

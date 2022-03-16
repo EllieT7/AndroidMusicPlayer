@@ -34,6 +34,7 @@ public class Controlador {
         valInsert.put("f_lanzamiento", dateFormat.format(album.getfLanzamiento()));
         valInsert.put("precio", album.getPrecio());
         valInsert.put("artista_id_artista", album.getArtista().getIdArtista());
+        valInsert.put("src",album.getSrc());
         return sql.insert("album",null,valInsert);
 
         //TODO insertar datos en album_genero
@@ -93,7 +94,7 @@ public class Controlador {
     public ArrayList<Album> readAlbum() throws ParseException {
         ArrayList<Album> listaAlbumes = new ArrayList<>();
         SQLiteDatabase sql = helper.getReadableDatabase();
-        String [] columnasConsultadas = {"id_album", "nombre", "f_lanzamiento", "precio","artista_id_artista"};
+        String [] columnasConsultadas = {"id_album", "nombre", "f_lanzamiento", "precio","artista_id_artista", "src"};
         Cursor cursor = sql.query(
                 "album",
                 columnasConsultadas,
@@ -119,9 +120,9 @@ public class Controlador {
             Date fecha = (Date) dateFormat.parse(stringDate);
             Float precio = cursor.getFloat(3);
             int idArtista = cursor.getInt(4);
-            String src="";
-            Album album = new Album(id,nombre,fecha,precio,getListaGeneros(id), getArtistaAlbum(idArtista), src);
-            listaAlbumes.add(album);
+            //byte[] src="";
+            //Album album = new Album(id,nombre,fecha,precio,getListaGeneros(id), getArtistaAlbum(idArtista), src);
+            //listaAlbumes.add(album);
         }while(cursor.moveToNext());
         cursor.close();
         return listaAlbumes;
