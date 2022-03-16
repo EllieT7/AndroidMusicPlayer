@@ -1,6 +1,8 @@
 package com.example.app_crud;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,9 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewDataHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull Adaptador.ViewDataHolder holder, int position) {
-        //holder.ivFoto.setImageResource(lista.get(position).getSrc());
+        byte[] imagenBytesRecuperado = lista.get(position).getSrc();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imagenBytesRecuperado,0,imagenBytesRecuperado.length);
+        holder.ivFoto.setImageBitmap(bitmap);
         holder.tvTitulo.setText(lista.get(position).getNombre());
         holder.tvArtista.setText(lista.get(position).getArtista().getNombre());
         holder.tvPrecio.setText(lista.get(position).getPrecio()+" $");

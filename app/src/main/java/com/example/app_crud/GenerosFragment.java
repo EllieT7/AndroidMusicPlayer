@@ -24,6 +24,7 @@ public class GenerosFragment extends Fragment {
     private ArrayList<Genero> listaGeneros;
     private AdaptadorGeneros adaptador;
     Button btnAtras;
+    Controlador controlador;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -68,7 +69,8 @@ public class GenerosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_generos, container, false);
-        listaGeneros = new ArrayList<>();
+        controlador = new Controlador(getContext());
+        listaGeneros = controlador.readAllGeneros();
         adaptador = new AdaptadorGeneros(listaGeneros);
         rvlista = vista.findViewById(R.id.rvGeneros);
         btnAtras = vista.findViewById(R.id.btnAtras);
@@ -80,7 +82,6 @@ public class GenerosFragment extends Fragment {
 
             }
         });
-        cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),1));
         rvlista.addOnItemTouchListener(new RecyclerTouchListener(this.getContext(), rvlista, new RecyclerTouchListener.ClickListener() {
@@ -95,11 +96,5 @@ public class GenerosFragment extends Fragment {
             }
         }));
         return vista;
-    }
-    void cargaData(){
-        listaGeneros.add(new Genero("POP"));
-        listaGeneros.add(new Genero("ROCK"));
-        listaGeneros.add(new Genero("KPOP"));
-        listaGeneros.add(new Genero("INDIE"));
     }
 }

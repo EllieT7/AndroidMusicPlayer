@@ -1,6 +1,7 @@
 package com.example.app_crud;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.islamkhsh.CardSliderViewPager;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,37 +43,18 @@ public class MainActivity extends AppCompatActivity {
     ArtistasFragment artistasFragment;
     GenerosFragment generosFragment;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //return super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_top, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.mnuAlta:
-                //Intent invoca = new Intent(this, Alta.class);
-                //startActivity(invoca);
-                break;
-            case R.id.mnuLista:
-                //Intent invoca1 = new Intent(this, Lista.class);
-                //startActivity(invoca1);
-                break;
-
-
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listaAlbumes = new ArrayList<>();
+        controlador = new Controlador(this);
+        try {
+            listaAlbumes = controlador.readAllAlbum();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         adaptador = new Adaptador(listaAlbumes);
         rvlista = findViewById(R.id.rvData);
         btnBuscar = findViewById(R.id.btnBuscar);
@@ -79,13 +63,17 @@ public class MainActivity extends AppCompatActivity {
         fabGenero = findViewById(R.id.btnGeneros);
         artistasFragment = new ArtistasFragment();
         generosFragment = new GenerosFragment();
-        cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this,2));
         rvlista.addOnItemTouchListener(new RecyclerTouchListener(this, rvlista, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, new DetalleAlbumFragment()).commit();
+                Bundle bundle = new Bundle();
+                Album albumSeleccionado = listaAlbumes.get(position);
+                bundle.putSerializable("album",albumSeleccionado);
+                DetalleAlbumFragment nuevoFragmentDetalle = new DetalleAlbumFragment();
+                nuevoFragmentDetalle.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, nuevoFragmentDetalle).commit();
             }
 
             @Override
@@ -127,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, generosFragment).commit();
             }
         });
-    try {
-        CardSliderViewPager cardSliderViewPager = (CardSliderViewPager) findViewById(R.id.viewPager);
-        cardSliderViewPager.setAdapter(new AlbumCentralAdapter(listaAlbumes));
-    }catch (Exception e){
-        System.out.println(e.getStackTrace());
-    }
+        try {
+            CardSliderViewPager cardSliderViewPager = (CardSliderViewPager) findViewById(R.id.viewPager);
+            cardSliderViewPager.setAdapter(new AlbumCentralAdapter(listaAlbumes));
+        }catch (Exception e){
+            System.out.println(e.getStackTrace());
+        }
 
         /*
         //btnAgregarGenero = findViewById(R.id.btnGuardarGenero);
@@ -157,20 +145,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
     }
-    void cargaData(){
-        /*
-        ArrayList<Genero> generos = new ArrayList<>();
-        java.util.Date utilDate = new java.util.Date();
-        listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbumes.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),null));
-        listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbumes.add(new Album("Blurryface",new Date(utilDate.getTime()),23,generos, new Artista("Twenty One Pilots","besotes"),null));
-        listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-        listaAlbumes.add(new Album("Map of the Soul",new Date(utilDate.getTime()),23,generos, new Artista("BTS","besotes"),null));
-*/
-    }
+
     void miAlerta(){
         AlertDialog.Builder alerta = new AlertDialog.Builder(this);
         alerta.setTitle("TITULO");

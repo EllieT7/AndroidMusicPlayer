@@ -41,6 +41,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@mipmap/ic_launcher_round"
+            android:id="@+id/ivFotoDetalle"
             />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -63,25 +64,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="*nombre"
-                    android:id="@+id/tvDetalleNombreAlbum"
+                    android:id="@+id/tvDetalleArtista"
                     />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Descripción: "
+                    android:text="Género: "
                     android:textSize="17dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*descripcion"
-                    android:id="@+id/tvDetalleDesc"
+                    android:text="*genero"
+                    android:id="@+id/tvDetalleGenero"
                     />
             </LinearLayout>
             <LinearLayout
@@ -92,16 +94,28 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Género(s): "
+                    android:text="Precio: "
                     android:textSize="17dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*genero"
-                    android:id="@+id/tvDetalleGenero"
+                    android:text="*precio"
+                    android:id="@+id/tvDetallePrecio"
                     />
             </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de lanzamiento: "
+                android:textSize="17dp"
+                />
+
+            <TextView
+                android:id="@+id/tvDetalleFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fecha" />
 
         </LinearLayout>
     </LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.app_crud;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,9 @@ public class AlbumCentralAdapter extends CardSliderAdapter<AlbumCentralAdapter.A
 
     @Override
     public void bindVH(AlbumViewHolder holder, int position) {
+        byte[] imagenBytesRecuperado = lista.get(position).getSrc();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imagenBytesRecuperado,0,imagenBytesRecuperado.length);
+        holder.ivFoto.setImageBitmap(bitmap);
         holder.tvTitulo.setText(lista.get(position).getNombre());
         holder.tvArtista.setText(lista.get(position).getArtista().getNombre());
         holder.tvPrecio.setText(lista.get(position).getPrecio()+" $");
@@ -47,7 +52,7 @@ public class AlbumCentralAdapter extends CardSliderAdapter<AlbumCentralAdapter.A
         Button  tvPrecio;
         public AlbumViewHolder(View view){
             super(view);
-            //ivFoto = itemView.findViewById(R.id.ivFoto);
+            ivFoto = itemView.findViewById(R.id.ivFoto);
             tvTitulo = itemView.findViewById(R.id.tvAlbumCentro);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             tvArtista = itemView.findViewById(R.id.tvArtistaCentro);

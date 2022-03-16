@@ -4,19 +4,16 @@ public class Cancion {
     private int idCancion;
     private String titulo;
     private String duracion;
-    private Album album;
 
-    public Cancion(int idCancion, String titulo, String duracion, Album album) {
+    public Cancion(int idCancion, String titulo, String duracion) {
         this.idCancion = idCancion;
         this.titulo = titulo;
         this.duracion = duracion;
-        this.album = album;
     }
 
-    public Cancion(String titulo, String duracion, Album album) {
+    public Cancion(String titulo, String duracion) {
         this.titulo = titulo;
         this.duracion = duracion;
-        this.album = album;
     }
 
     public int getIdCancion() {
@@ -43,11 +40,12 @@ public class Cancion {
         this.duracion = duracion;
     }
 
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setIdAlbum(Album album) {
-        this.album = album;
+    @Override
+    public String toString() {
+        return "Cancion{" +
+                "idCancion=" + idCancion +
+                ", titulo='" + titulo + '\'' +
+                ", duracion='" + duracion + '\'' +
+                '}';
     }
 }

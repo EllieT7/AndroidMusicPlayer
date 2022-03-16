@@ -22,6 +22,7 @@ import java.util.zip.Inflater;
  * create an instance of this fragment.
  */
 public class ArtistasFragment extends Fragment {
+    Controlador controlador;
     private RecyclerView rvlista;
     private ArrayList<Artista> listaArtistas;
     private AdaptadorArtistas adaptador;
@@ -75,7 +76,8 @@ public class ArtistasFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View vista = inflater.inflate(R.layout.fragment_artistas, container, false);
-        listaArtistas = new ArrayList<>();
+        controlador = new Controlador(getContext());
+        listaArtistas = controlador.readAllArtistas();
         adaptador = new AdaptadorArtistas(listaArtistas);
         rvlista = vista.findViewById(R.id.rvArtistas);
         btnAtras = vista.findViewById(R.id.btnAtras);
@@ -87,17 +89,8 @@ public class ArtistasFragment extends Fragment {
 
             }
         });
-        cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),1));
         return vista;
-    }
-
-    void cargaData(){
-        ArrayList<Genero> generos = new ArrayList<>();
-        listaArtistas.add(new Artista("BTS","bonitos"));
-        listaArtistas.add(new Artista("Twenty One Pilots","bonitos"));
-        listaArtistas.add(new Artista("Melanie Martinez","bonita"));
-
     }
 }

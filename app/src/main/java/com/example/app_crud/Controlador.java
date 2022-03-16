@@ -39,9 +39,20 @@ public class Controlador {
         valInsert.put("src",album.getSrc());
         valInsert.put("artista_id_artista", album.getArtista().getIdArtista());
         valInsert.put("genero_id_genero", album.getGeneros().getIdGenero());
-        return sql.insert("album",null,valInsert);
-
-
+        sql.insert("album",null,valInsert);
+        for(int i=0; i<album.getListaCanciones().size()-1;i++){
+            ContentValues valInsert1 = new ContentValues();
+            valInsert1.put("titulo", album.getListaCanciones().get(i).getTitulo());
+            valInsert1.put("duracion", album.getListaCanciones().get(i).getDuracion());
+            valInsert1.put("album_id_album", getUltimoAlbumID());
+            sql.insert("cancion",null,valInsert1);
+        }
+        ContentValues valInsert1 = new ContentValues();
+        int size = album.getListaCanciones().size();
+        valInsert1.put("titulo", album.getListaCanciones().get(size-1).getTitulo());
+        valInsert1.put("duracion", album.getListaCanciones().get(size-1).getDuracion());
+        valInsert1.put("album_id_album", getUltimoAlbumID());
+        return sql.insert("cancion",null,valInsert1);
     }
 
     public long createArtista(Artista artista){
@@ -52,12 +63,11 @@ public class Controlador {
         return sql.insert("artista",null,valInsert);
     }
 
-    public long createCancion(Cancion cancion){
+    public long createCancion(Cancion cancion, Album album){
         SQLiteDatabase sql = helper.getWritableDatabase();
         ContentValues valInsert = new ContentValues();
         valInsert.put("titulo", cancion.getTitulo());
         valInsert.put("duracion", cancion.getDuracion());
-        valInsert.put("album_id_album", cancion.getAlbum().getIdAlbum());
         return sql.insert("cancion",null,valInsert);
     }
 
@@ -127,14 +137,19 @@ public class Controlador {
             byte[] src= cursor.getBlob(4);
             int idArtista = cursor.getInt(5);
             int idGenero = cursor.getInt(6);
-
-            Album album = new Album(id,nombre,fecha,precio,getGenero(idGenero), getArtistaAlbum(idArtista), src);
+            ArrayList<Cancion> listaCanciones = getCanciones(id);
+            Album album = new Album(id,nombre,fecha,precio,getGenero(idGenero), getArtistaAlbum(idArtista), src, listaCanciones);
             listaAlbumes.add(album);
         }while(cursor.moveToNext());
         cursor.close();
         return listaAlbumes;
     }
 
+    public ArrayList<Cancion> getCanciones(int idAlbum){
+        ArrayList<Cancion> lista = new ArrayList<>();
+        //TODO trabajar query
+        return lista;
+    }
     //Select
     //Busca artista por el id de un album
     public Artista getArtistaAlbum(int idArtista){
@@ -175,6 +190,27 @@ public class Controlador {
         }while(cursor.moveToNext());
         cursor.close();
         return genero;
+    }
+
+    //Obtener ultimo elemento album
+    //Busca la lista de generos que pertenecen al album
+    public int getUltimoAlbumID(){
+        int id = 0;
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        Cursor cursor = sql.rawQuery("select id_album from album order by id_album desc",null);
+        if(cursor==null){
+            return id;
+        }
+        if(!cursor.moveToFirst()){
+            return id;
+        }
+        do{
+            int idRecolectado = cursor.getInt(0);
+            id = idRecolectado;
+            break;
+        }while(cursor.moveToNext());
+        cursor.close();
+        return id;
     }
 
     //Leer todos los generos
@@ -241,6 +277,40 @@ public class Controlador {
         }while(cursor.moveToNext());
         cursor.close();
         return listaArtista;
+    }
+    //Leer todos las canciones
+    public ArrayList<Cancion> readAllCanciones(){
+        ArrayList<Cancion> listaCanciones= new ArrayList<>();
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        String [] columnasConsultadas = {"id_cancion", "titulo","duracion","album_id_album"};
+        Cursor cursor = sql.query(
+                "cancion",
+                columnasConsultadas,
+                null,
+                null,
+                null,
+                null,
+                "id_cancion"
+        );
+
+        if(cursor==null){
+            return listaCanciones;
+        }
+        if(!cursor.moveToFirst()){
+            return listaCanciones;
+        }
+
+        do{
+            int id = cursor.getInt(0);
+            String nombre = cursor.getString(1);
+            String duracion = cursor.getString(2);
+            int idAlbum = cursor.getInt(3);
+            System.out.println("idAlbum: "+idAlbum);
+            Cancion cancion = new Cancion(id,nombre,duracion);
+            listaCanciones.add(cancion);
+        }while(cursor.moveToNext());
+        cursor.close();
+        return listaCanciones;
     }
     //Delete
     public int deleteGenero(Genero generoAEliminar){

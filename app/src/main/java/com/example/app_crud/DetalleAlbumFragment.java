@@ -1,6 +1,9 @@
 package com.example.app_crud;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +22,8 @@ import android.widget.Button;
  */
 public class DetalleAlbumFragment extends Fragment {
     Button btnAtras, btnVentaCompra;
+    TextView tvTitulo, tvArtista, tvPrecio, tvFecha, tvGenero;
+    ImageView imgDetalle;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,8 +68,28 @@ public class DetalleAlbumFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_detalle_album, container, false);
+        Album albumRecibido = (Album) getArguments().getSerializable("album");
+        System.out.println("info que llegó: "+getArguments().getSerializable("album"));
         btnAtras = vista.findViewById(R.id.btnAtras);
         btnVentaCompra = vista.findViewById(R.id.btnVentaComprar);
+        tvTitulo = vista.findViewById(R.id.nombreAlbum);
+        tvFecha = vista.findViewById(R.id.tvDetalleFecha);
+        tvArtista = vista.findViewById(R.id.tvDetalleArtista);
+        tvPrecio = vista.findViewById(R.id.tvDetallePrecio);
+        tvGenero = vista.findViewById(R.id.tvDetalleGenero);
+        imgDetalle = vista.findViewById(R.id.ivFotoDetalle);
+        //Asignando
+        tvTitulo.setText(albumRecibido.getNombre());
+        tvFecha.setText(albumRecibido.getfLanzamiento().toString());
+        tvArtista.setText(albumRecibido.getArtista().getNombre());
+        tvPrecio.setText(albumRecibido.getPrecio()+"$");
+        tvGenero.setText(albumRecibido.getGeneros().getDescripcion());
+        byte[] imagenBytesRecuperado = albumRecibido.getSrc();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imagenBytesRecuperado,0,imagenBytesRecuperado.length);
+        imgDetalle.setImageBitmap(bitmap);
+
+
+
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

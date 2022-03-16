@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 public class MainActivity2 extends AppCompatActivity {
     ImageView btnAlbumes, btnArtistas, btnGeneros, btnVentas;
+    Controlador controlador;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +22,11 @@ public class MainActivity2 extends AppCompatActivity {
         btnAlbumes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                controlador = new Controlador(getApplicationContext());
+                ArrayList<Cancion> lista = controlador.readAllCanciones();
+                for(int i=0;i<lista.size();i++){
+                    System.out.println(lista.get(i));
+                }
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal2, new AdminAlbumFragment()).commit();
             }
         });
@@ -35,6 +43,7 @@ public class MainActivity2 extends AppCompatActivity {
 
             }
         });
+
 
     }
 }

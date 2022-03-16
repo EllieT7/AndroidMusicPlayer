@@ -16,6 +16,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -56,6 +58,9 @@ public class AdminAgregarAlbumFragment extends Fragment {
     EditText etPlannedDate, etNombreAlbum, etPrecio;
     Spinner spinnerArtistas, spinnerGeneros;
     Controlador controlador;
+    ArrayList<Cancion> listaCanciones = new ArrayList<>();
+    RecyclerView rvlistadoCanciones;
+    AdaptadorAdminCanciones adaptador;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,6 +108,13 @@ public class AdminAgregarAlbumFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_admin_agregar_album, container, false);
         etNombreAlbum = vista.findViewById(R.id.etNombreAlbum);
         etPrecio = vista.findViewById(R.id.etPrecioAlbum);
+
+        rvlistadoCanciones = vista.findViewById(R.id.rvCancionesAgregadas);
+        adaptador = new AdaptadorAdminCanciones(listaCanciones);
+        rvlistadoCanciones.setAdapter(adaptador);
+        rvlistadoCanciones.setLayoutManager(new GridLayoutManager(this.getContext(),1));
+
+
         controlador = new Controlador(getContext());
         spinnerArtistas = vista.findViewById(R.id.spinnerArtista);
         spinnerGeneros = vista.findViewById(R.id.spinnerGenero);
@@ -129,7 +141,7 @@ public class AdminAgregarAlbumFragment extends Fragment {
                     ByteArrayOutputStream objeto = new ByteArrayOutputStream();
                     imageToStore.compress(Bitmap.CompressFormat.JPEG, 100, objeto);
                     byte[] imgBytes = objeto.toByteArray();
-                    Album  album = new Album(etNombreAlbum.getText().toString(),new Date(fecha.getTime()),precio,genero, artista,imgBytes);
+                    Album  album = new Album(etNombreAlbum.getText().toString(),new Date(fecha.getTime()),precio,genero, artista,imgBytes, listaCanciones);
                     long res = controlador.createAlbum(album);
                     if(res <= 0){
                         System.out.println(" fracaso  proceso de alta ");
@@ -161,7 +173,9 @@ public class AdminAgregarAlbumFragment extends Fragment {
                 ale.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //Cancion cancion = new Cancion(etNombre.getText().toString(),etDuracion.getText().toString(), );
+                        Cancion cancion = new Cancion(etNombre.getText().toString(),etDuracion.getText().toString());
+
+                        refrescarListaDeCanciones(cancion);
                     /*objProd.setNombreProducto(etNombre.getText().toString());
                     objProd.setCostoUnitario(Float.parseFloat(etCosto.getText().toString()));
                     long res = controlador.cambioProducto(objProd);
@@ -249,8 +263,17 @@ public class AdminAgregarAlbumFragment extends Fragment {
 
         }
     }
+    public void refrescarListaDeCanciones(Cancion cancion) {
 
-    public void storeImage(ModelClassImage objectModelImage){
+        System.out.println("100");
+        if (adaptador == null) return;
+        System.out.println("200");
+        listaCanciones.add(cancion);
+        adaptador.setLista(listaCanciones);
+        adaptador.notifyDataSetChanged();
+        System.out.println("300");
+    }
+    /*public void storeImage(ModelClassImage objectModelImage){
         try {
             Bitmap imageToStore = objectModelImage.getImage();
             ByteArrayOutputStream objeto = new ByteArrayOutputStream();
@@ -276,7 +299,7 @@ public class AdminAgregarAlbumFragment extends Fragment {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
     public void llenarSpinner(Spinner spinner, String tipo){
       if(tipo.equals("artista")){
           ArrayList<Artista> listaArtistas = controlador.readAllArtistas();

@@ -207,9 +207,9 @@
                 />
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/lvCancionesAgregadas"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCancionesAgregadas"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp" />

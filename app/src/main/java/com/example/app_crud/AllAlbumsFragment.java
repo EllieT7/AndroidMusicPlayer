@@ -1,8 +1,10 @@
 package com.example.app_crud;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +28,7 @@ public class AllAlbumsFragment extends Fragment {
     private ArrayList<Album> listaAlbum;
     private Adaptador adaptador;
     Button btnAtras;
+    Controlador controlador;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,11 +70,17 @@ public class AllAlbumsFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_all_albums, container, false);
-        listaAlbum = new ArrayList<>();
+        controlador = new Controlador(getContext());
+        try {
+            listaAlbum = controlador.readAllAlbum();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         adaptador = new Adaptador(listaAlbum);
         rvlista = vista.findViewById(R.id.rvAllAlbum);
         btnAtras = vista.findViewById(R.id.btnAtras);
@@ -82,7 +92,7 @@ public class AllAlbumsFragment extends Fragment {
 
             }
         });
-        cargaData();
+        //cargaData();
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),2));
 
