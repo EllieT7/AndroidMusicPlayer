@@ -7,6 +7,8 @@ import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ public class DetalleAlbumFragment extends Fragment {
     Button btnAtras, btnVentaCompra;
     TextView tvTitulo, tvArtista, tvPrecio, tvFecha, tvGenero;
     ImageView imgDetalle;
+    RecyclerView rvListaCanciones;
+    AdaptadorAdminCanciones adaptador;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +82,12 @@ public class DetalleAlbumFragment extends Fragment {
         tvPrecio = vista.findViewById(R.id.tvDetallePrecio);
         tvGenero = vista.findViewById(R.id.tvDetalleGenero);
         imgDetalle = vista.findViewById(R.id.ivFotoDetalle);
+        adaptador = new AdaptadorAdminCanciones(albumRecibido.getListaCanciones());
+        rvListaCanciones = vista.findViewById(R.id.rvTracklist);
+        rvListaCanciones.setAdapter(adaptador);
+        rvListaCanciones.setLayoutManager(new GridLayoutManager(this.getContext(),1));
+
+
         //Asignando
         tvTitulo.setText(albumRecibido.getNombre());
         tvFecha.setText(albumRecibido.getfLanzamiento().toString());
@@ -87,6 +97,8 @@ public class DetalleAlbumFragment extends Fragment {
         byte[] imagenBytesRecuperado = albumRecibido.getSrc();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imagenBytesRecuperado,0,imagenBytesRecuperado.length);
         imgDetalle.setImageBitmap(bitmap);
+
+
 
 
 

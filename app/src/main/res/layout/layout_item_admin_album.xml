@@ -6,23 +6,23 @@
     android:orientation="vertical"
     android:background="@drawable/customborder"
     >
+
     <Button
         android:id="@+id/btnEditarAlbum"
         android:layout_width="35dp"
         android:layout_height="40dp"
         android:layout_marginTop="6dp"
 
-        android:backgroundTint="#8BC34A"
         android:layout_toLeftOf="@+id/btnEliminarAlbum"
-        />
+        android:backgroundTint="#8BC34A" />
 
     <Button
         android:id="@+id/btnEliminarAlbum"
         android:layout_width="35dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="6dp"
+        android:layout_marginRight="8dp"
         android:backgroundTint="#E91E63" />
 
     <ImageView

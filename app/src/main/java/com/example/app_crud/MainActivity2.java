@@ -1,11 +1,9 @@
 package com.example.app_crud;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
 import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -40,10 +38,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal2, new AdminGeneroFragment()).commit();
-
             }
         });
-
-
     }
 }

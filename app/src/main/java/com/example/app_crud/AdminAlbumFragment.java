@@ -81,7 +81,7 @@ public class AdminAlbumFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        adaptador = new AdaptadorAdminAlbums(listaAlbum);
+        adaptador = new AdaptadorAdminAlbums(getActivity(),listaAlbum);
         rvlista = vista.findViewById(R.id.rvAllAlbumAdmin);
         btnAtras = vista.findViewById(R.id.btnAtras);
         btnAtras.setOnClickListener(new View.OnClickListener() {

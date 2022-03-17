@@ -76,7 +76,7 @@ public class AdminArtistaFragment extends Fragment {
         listaArtistas = new ArrayList<>();
         controlador = new Controlador(getContext());
         listaArtistas = controlador.readAllArtistas();
-        adaptador = new AdaptadorAdminArtistas(listaArtistas);
+        adaptador = new AdaptadorAdminArtistas(getActivity(),listaArtistas);
         rvlista = vista.findViewById(R.id.rvArtistasAdmin);
         btnAtras = vista.findViewById(R.id.btnAtras);
         btnAtras.setOnClickListener(new View.OnClickListener() {

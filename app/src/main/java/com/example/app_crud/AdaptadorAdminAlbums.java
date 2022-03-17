@@ -1,8 +1,10 @@
 package com.example.app_crud;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -18,9 +21,11 @@ import java.util.ArrayList;
 public class AdaptadorAdminAlbums extends RecyclerView.Adapter<AdaptadorAdminAlbums.ViewDataHolder> {
 
     ArrayList<Album> lista;
+    FragmentActivity fragment;
 
-    public AdaptadorAdminAlbums(ArrayList<Album> lista) {
+    public AdaptadorAdminAlbums(FragmentActivity fragment, ArrayList<Album> lista) {
         this.lista = lista;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -33,13 +38,25 @@ public class AdaptadorAdminAlbums extends RecyclerView.Adapter<AdaptadorAdminAlb
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorAdminAlbums.ViewDataHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdaptadorAdminAlbums.ViewDataHolder holder, @SuppressLint("RecyclerView") int position) {
         byte[] imagenBytesRecuperado = lista.get(position).getSrc();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imagenBytesRecuperado,0,imagenBytesRecuperado.length);
         holder.ivFoto.setImageBitmap(bitmap);
         holder.tvTitulo.setText(lista.get(position).getNombre());
         holder.tvArtista.setText(lista.get(position).getArtista().getNombre());
         holder.tvPrecio.setText(lista.get(position).getPrecio()+" $");
+        holder.btnEditarAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                Album albumSeleccionado = lista.get(position);
+                bundle.putSerializable("album",albumSeleccionado);
+                AdminEditarAlbumFragment nuevoFragmentEditar = new AdminEditarAlbumFragment();
+                nuevoFragmentEditar.setArguments(bundle);
+                fragment.getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal2, nuevoFragmentEditar).commit();
+
+            }
+        });
 
     }
 

@@ -77,7 +77,7 @@ public class AdminGeneroFragment extends Fragment {
         listaGeneros = new ArrayList<>();
         controlador = new Controlador(getContext());
         listaGeneros = controlador.readAllGeneros();
-        adaptador = new AdaptadorAdminGeneros(listaGeneros);
+        adaptador = new AdaptadorAdminGeneros(getActivity(),listaGeneros);
         rvlista = vista.findViewById(R.id.rvGenerosAdmin);
         btnAtras = vista.findViewById(R.id.btnAtras);
         btnAtras.setOnClickListener(new View.OnClickListener() {
@@ -90,17 +90,7 @@ public class AdminGeneroFragment extends Fragment {
         });
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),1));
-        rvlista.addOnItemTouchListener(new RecyclerTouchListener(this.getContext(), rvlista, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, new AllAlbumsFragment()).commit();
-            }
 
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
 
         btnAgregarGenero = vista.findViewById(R.id.btnAgregarGenero);
         btnAgregarGenero.setOnClickListener(new View.OnClickListener() {

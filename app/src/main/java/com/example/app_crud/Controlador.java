@@ -147,7 +147,22 @@ public class Controlador {
 
     public ArrayList<Cancion> getCanciones(int idAlbum){
         ArrayList<Cancion> lista = new ArrayList<>();
-        //TODO trabajar query
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        Cursor cursor = sql.rawQuery("select * from cancion where album_id_album = "+idAlbum,null);
+        if(cursor==null){
+            return lista;
+        }
+        if(!cursor.moveToFirst()){
+            return lista;
+        }
+        do{
+            int id = cursor.getInt(0);
+            String nombre = cursor.getString(1);
+            String duracion = cursor.getString(2);
+            Cancion cancion = new Cancion(id,nombre,duracion);
+            lista.add(cancion);
+        }while(cursor.moveToNext());
+        cursor.close();
         return lista;
     }
     //Select
@@ -320,5 +335,61 @@ public class Controlador {
         return baseDeDatos.delete("genero",campo, argumento);
     }
 
+    //Update
+    public long editarAlbum(Album album){
+        SQLiteDatabase sql = helper.getWritableDatabase();
+        ContentValues valoresActualizar = new ContentValues();
+        valoresActualizar.put("nombre", album.getNombre());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //Dando formato
+        valoresActualizar.put("f_lanzamiento", dateFormat.format(album.getfLanzamiento()));
+        valoresActualizar.put("precio", album.getPrecio());
+        valoresActualizar.put("src",album.getSrc());
+        valoresActualizar.put("artista_id_artista", album.getArtista().getIdArtista());
+        valoresActualizar.put("genero_id_genero", album.getGeneros().getIdGenero());
+        // where id...
+        String campoParaActualizar = "id_album = ?";
+        String[] argumentosParaActualizar = {String.valueOf(album.getIdAlbum())};
+        sql.update("album",valoresActualizar,campoParaActualizar,argumentosParaActualizar);
+        //Eliminamos canciones
+        SQLiteDatabase baseDeDatos = helper.getWritableDatabase();
+        // where id...
+        String campoParaEliminar = "album_id_album = ?";
+        String[] argumentosParaEliminar = {String.valueOf(album.getIdAlbum())};
+        sql.delete("cancion",  campoParaEliminar, argumentosParaEliminar);
 
+        //insertamos canciones
+        for(int i=0; i<album.getListaCanciones().size()-1;i++){
+            ContentValues valInsert1 = new ContentValues();
+            valInsert1.put("titulo", album.getListaCanciones().get(i).getTitulo());
+            valInsert1.put("duracion", album.getListaCanciones().get(i).getDuracion());
+            valInsert1.put("album_id_album", album.getIdAlbum());
+            sql.insert("cancion",null,valInsert1);
+        }
+        ContentValues valInsert1 = new ContentValues();
+        int size = album.getListaCanciones().size();
+        valInsert1.put("titulo", album.getListaCanciones().get(size-1).getTitulo());
+        valInsert1.put("duracion", album.getListaCanciones().get(size-1).getDuracion());
+        valInsert1.put("album_id_album", album.getIdAlbum());
+        return sql.insert("cancion",null,valInsert1);
+    }
+
+    public long editarArtista(Artista artista){
+        SQLiteDatabase sql = helper.getWritableDatabase();
+        ContentValues valoresActualizar = new ContentValues();
+        valoresActualizar.put("nombre", artista.getNombre());
+        valoresActualizar.put("descripcion", artista.getDescripcion());
+        // where id...
+        String campoParaActualizar = "id_artista = ?";
+        String[] argumentosParaActualizar = {String.valueOf(artista.getIdArtista())};
+        return sql.update("artista",valoresActualizar,campoParaActualizar,argumentosParaActualizar);
+    }
+    public long editarGenero(Genero genero){
+        SQLiteDatabase sql = helper.getWritableDatabase();
+        ContentValues valoresActualizar = new ContentValues();
+        valoresActualizar.put("descripcion", genero.getDescripcion());
+        // where id...
+        String campoParaActualizar = "id_genero = ?";
+        String[] argumentosParaActualizar = {String.valueOf(genero.getIdGenero())};
+        return sql.update("genero",valoresActualizar,campoParaActualizar,argumentosParaActualizar);
+    }
 }
