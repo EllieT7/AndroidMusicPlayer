@@ -26,12 +26,16 @@
                 android:layout_height="wrap_content"
                 android:text="Bienvenido!"
                 android:textSize="30dp"
+                android:textColor="#8BC34A"
+                android:fontFamily="sans-serif-condensed-medium"
                 />
             <TextView
+                android:textColor="#5F839F"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Últimos lanzamientos"
-                android:textSize="20dp"
+                android:textSize="22dp"
+                android:fontFamily="sans-serif-condensed"
                 />
         </LinearLayout>
         <ImageView
@@ -72,24 +76,6 @@
         android:id="@+id/indicator"
         android:layout_below="@id/viewPager"
         app:indicatorsToShow="5" />
-    <!--
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Genero" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Descripcion"
-        android:id="@+id/etDescripcion"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Guardar"
-        android:id="@+id/btnGuardarGenero"
-        />-->
-
 
     <Space
         android:layout_width="wrap_content"
@@ -97,15 +83,17 @@
         android:layout_below="@id/indicator"
         android:id="@+id/space"
         />
+
     <TextView
+        android:id="@+id/productos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Todos los productos"
-        android:textSize="20dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/productos"
         android:layout_below="@+id/space"
-        />
+        android:layout_marginLeft="10dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Todos los productos"
+        android:textColor="#00BCD4"
+        android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvData"

@@ -22,6 +22,8 @@
             android:layout_marginTop="20dp"
             >
             <TextView
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Album"
@@ -44,9 +46,11 @@
                 android:layout_height="10dp"
                 />
             <Button
+                android:backgroundTint="#8BC34A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="precio"
+                android:textColor="@color/white"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
                 android:id="@+id/tvPrecio"

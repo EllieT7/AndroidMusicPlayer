@@ -17,6 +17,8 @@
         android:layout_marginLeft="20dp"
         >
         <TextView
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre"
@@ -29,14 +31,7 @@
             android:id="@+id/tvDescripcion"
             />
     </LinearLayout>
-    <TextView
-        android:layout_weight="1"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cantidad"
-        android:id="@+id/tvCantidad"
-        />
+
 
 
 

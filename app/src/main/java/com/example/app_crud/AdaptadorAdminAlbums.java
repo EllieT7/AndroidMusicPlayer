@@ -46,7 +46,7 @@ public class AdaptadorAdminAlbums extends RecyclerView.Adapter<AdaptadorAdminAlb
         holder.ivFoto.setImageBitmap(bitmap);
         holder.tvTitulo.setText(lista.get(position).getNombre());
         holder.tvArtista.setText(lista.get(position).getArtista().getNombre());
-        holder.tvPrecio.setText(lista.get(position).getPrecio()+" $");
+        holder.tvPrecio.setText(lista.get(position).getPrecio()+" Bs.");
         holder.btnEditarAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

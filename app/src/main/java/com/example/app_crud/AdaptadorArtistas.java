@@ -31,7 +31,7 @@ public class AdaptadorArtistas extends RecyclerView.Adapter<AdaptadorArtistas.Vi
         //holder.ivFoto.setImageResource(lista.get(position).getSrc());
         holder.tvNombre.setText(lista.get(position).getNombre());
         holder.tvDescripcion.setText(lista.get(position).getDescripcion());
-        holder.tvCantidad.setText(lista.get(position).getCantidad()+"");
+
     }
 
     @Override
@@ -40,13 +40,12 @@ public class AdaptadorArtistas extends RecyclerView.Adapter<AdaptadorArtistas.Vi
     }
 
     public class ViewDataHolder extends RecyclerView.ViewHolder {
-        TextView tvNombre, tvDescripcion, tvCantidad;
+        TextView tvNombre, tvDescripcion;
 
         public ViewDataHolder(@NonNull View itemView) {
             super(itemView);
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
-            tvCantidad = itemView.findViewById(R.id.tvCantidad);
 
         }
     }

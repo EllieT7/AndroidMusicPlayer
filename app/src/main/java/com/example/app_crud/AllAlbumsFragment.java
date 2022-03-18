@@ -75,12 +75,9 @@ public class AllAlbumsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_all_albums, container, false);
+        listaAlbum = (ArrayList<Album>) getArguments().getSerializable("album");
+        System.out.println("info que llegó: "+getArguments().getSerializable("album"));
         controlador = new Controlador(getContext());
-        try {
-            listaAlbum = controlador.readAllAlbum();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         adaptador = new Adaptador(listaAlbum);
         rvlista = vista.findViewById(R.id.rvAllAlbum);
         btnAtras = vista.findViewById(R.id.btnAtras);

@@ -1,23 +1,15 @@
 package com.example.app_crud;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.islamkhsh.CardSliderViewPager;
@@ -30,13 +22,11 @@ import java.util.List;
 import in.goodiebag.carouselpicker.CarouselPicker;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnAgregarGenero;
-    EditText etDescripcion;
+
     Controlador controlador;
     ArrayList<Album> listaAlbumes;
     Adaptador adaptador;
     RecyclerView rvlista;
-    CarouselPicker carouselPicker;
     ImageView btnBuscar;
     FloatingActionsMenu grupoBotones;
     FloatingActionButton fabArtista, fabGenero;
@@ -81,16 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
-        /*carouselPicker = (CarouselPicker) findViewById(R.id.carousel);
-        List<CarouselPicker.PickerItem> mixItems = new ArrayList<>();
-        mixItems.add(new CarouselPicker.TextItem("One",20));
-        mixItems.add(new CarouselPicker.DrawableItem(R.mipmap.ic_launcher_round));
-        mixItems.add(new CarouselPicker.TextItem("two",20));
-        mixItems.add(new CarouselPicker.DrawableItem(R.mipmap.ic_launcher));
-        CarouselPicker.CarouselViewAdapter mixAdapter = new CarouselPicker.CarouselViewAdapter(this, mixItems,0);
-        carouselPicker.setAdapter(mixAdapter);*/
 
-        //view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         fabArtista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mostrarFragmentArtistas();
                 System.out.println("Artista");
                 grupoBotones.collapse();
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, artistasFragment).commit();
@@ -121,28 +101,6 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){
             System.out.println(e.getStackTrace());
         }
-
-        /*
-        //btnAgregarGenero = findViewById(R.id.btnGuardarGenero);
-        //etDescripcion = findViewById(R.id.etDescripcion);
-        controlador = new Controlador(this);
-        System.out.println(controlador.readGeneros());
-        btnAgregarGenero.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String descripcion = etDescripcion.getText().toString().trim();
-                long res = controlador.createGenero(new Genero(descripcion));
-                if(res <= 0){
-                    System.out.println(" fracaso  proceso de alta ");
-                    Toast.makeText(getApplicationContext(),"error, fracaso en la grabacion", Toast.LENGTH_LONG).show();
-                }else{
-                    System.out.println(" exito en el proceso de alta ");
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    Toast.makeText(getApplicationContext(),"succes, exito en la grabacion "+res, Toast.LENGTH_LONG).show();
-                }
-            }
-        });*/
 
     }
 

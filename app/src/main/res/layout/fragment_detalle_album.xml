@@ -15,12 +15,17 @@
         android:id="@+id/Encabezado"
         >
         <Button
+            android:backgroundTint="#A576D5"
             android:id="@+id/btnAtras"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="." />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@mipmap/flecha" />
         <TextView
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="#A576D5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Titulo"
@@ -31,6 +36,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -38,10 +44,12 @@
         android:id="@+id/Informacion"
         >
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@mipmap/ic_launcher_round"
             android:id="@+id/ivFotoDetalle"
+            android:layout_marginLeft="12dp"
+
             />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -57,8 +65,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:text="Artista: "
-                    android:textSize="17dp"
+                    android:textColor="#2196F3"
+                    android:textSize="18dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,8 +86,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Género: "
-                    android:textSize="17dp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Género : "
+                    android:textColor="#2196F3"
+                    android:textSize="18dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,8 +106,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:text="Precio: "
-                    android:textSize="17dp"
+                    android:textColor="#2196F3"
+                    android:textSize="18dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,8 +121,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:text="Fecha de lanzamiento: "
-                android:textSize="17dp"
+                android:textColor="#2196F3"
+                android:textSize="18dp"
                 />
 
             <TextView
@@ -128,10 +144,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tracklist"
-            android:textSize="19dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="25dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Tracklist"
+            android:textColor="#BD50CF"
+            android:textSize="22dp"
             />
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="wrap_content"
@@ -150,6 +168,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
+        android:backgroundTint="#A576D5"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
         android:text="Comprar" />
 
 </RelativeLayout>

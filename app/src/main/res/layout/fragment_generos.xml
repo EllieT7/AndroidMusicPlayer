@@ -18,11 +18,17 @@
 
     >
     <Button
+        android:backgroundTint="#FFC107"
         android:id="@+id/btnAtras"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:text="." />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@mipmap/flecha"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"/>
+    />
     <TextView
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="#FFC107"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Géneros"

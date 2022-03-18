@@ -17,6 +17,8 @@
         android:layout_marginLeft="20dp"
         >
         <TextView
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre"
@@ -32,19 +34,17 @@
     <Button
         android:layout_marginTop="20dp"
         android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:text=""
+        android:layout_height="40dp"
         android:id="@+id/btnEditarArtista"
-        android:backgroundTint="#60B864"
+        android:background="@mipmap/edit"
         />
     <Button
        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:text=""
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:background="@mipmap/delete"
         android:id="@+id/btnEliminarArtista"
-        android:backgroundTint="#E67D75"
         />
 
 

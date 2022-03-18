@@ -85,7 +85,7 @@ public class AdminVentaFragment extends Fragment {
             }
         });
         rvlista.setAdapter(adaptador);
-        rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),2));
+        rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),1));
 
         return vista;
     }

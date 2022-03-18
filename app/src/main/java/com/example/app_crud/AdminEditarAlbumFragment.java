@@ -202,17 +202,7 @@ public class AdminEditarAlbumFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Cancion cancion = new Cancion(etNombre.getText().toString(),etDuracion.getText().toString());
-
                         refrescarListaDeCanciones(cancion);
-                    /*objProd.setNombreProducto(etNombre.getText().toString());
-                    objProd.setCostoUnitario(Float.parseFloat(etCosto.getText().toString()));
-                    long res = controlador.cambioProducto(objProd);
-                    if(res < 0){
-                        Toast.makeText(getApplicationContext(),"Error en el cambio", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(),"succes, exito en  e cambio "+res, Toast.LENGTH_LONG).show();
-                        refrescarListaDeProductos();
-                    }*/
                     }
                 });
 

@@ -18,15 +18,20 @@
 
         >
         <Button
+            android:backgroundTint="#E84833"
             android:id="@+id/btnAtras"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:text="." />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/flecha"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"/>
         <TextView
-            android:layout_width="match_parent"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="#E84833"
+            android:textSize="30dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:text="Artistas"
-            android:textSize="30dp"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
 

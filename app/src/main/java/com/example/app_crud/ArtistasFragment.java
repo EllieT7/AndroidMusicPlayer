@@ -91,6 +91,23 @@ public class ArtistasFragment extends Fragment {
         });
         rvlista.setAdapter(adaptador);
         rvlista.setLayoutManager(new GridLayoutManager(this.getContext(),1));
+        rvlista.addOnItemTouchListener(new RecyclerTouchListener(this.getContext(), rvlista, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Bundle bundle = new Bundle();
+                Artista artistaSeleccionado = listaArtistas.get(position);
+                ArrayList<Album> albums = controlador.getAlbumByArtista(artistaSeleccionado.getIdArtista());
+                bundle.putSerializable("album",albums);
+                AllAlbumsFragment nuevoFragment = new AllAlbumsFragment();
+                nuevoFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, nuevoFragment).commit();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
         return vista;
     }
 }

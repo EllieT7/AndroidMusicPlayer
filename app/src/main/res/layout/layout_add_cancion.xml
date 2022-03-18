@@ -12,6 +12,8 @@
         android:weightSum="3"
         >
         <TextView
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="#673AB7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Titulo:  "
@@ -22,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/etNombreCancion"
-            android:hint="nombre"
             android:textSize="25dp"
             android:layout_weight="1"
             />
@@ -34,17 +35,18 @@
         android:weightSum="3"
         >
         <TextView
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="#673AB7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Duración: "
-            android:textSize="25dp"
+            android:textSize="22dp"
             android:layout_weight="2"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/etDuracion"
-            android:hint="duracion"
             android:textSize="25dp"
             android:layout_weight="1"
             />

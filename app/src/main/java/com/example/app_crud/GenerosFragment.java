@@ -87,7 +87,13 @@ public class GenerosFragment extends Fragment {
         rvlista.addOnItemTouchListener(new RecyclerTouchListener(this.getContext(), rvlista, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, new AllAlbumsFragment()).commit();
+                Bundle bundle = new Bundle();
+                Genero generoSeleccionado = listaGeneros.get(position);
+                ArrayList<Album> albums = controlador.getAlbumByGenero(generoSeleccionado.getIdGenero());
+                bundle.putSerializable("album",albums);
+                AllAlbumsFragment nuevoFragment = new AllAlbumsFragment();
+                nuevoFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, nuevoFragment).commit();
             }
 
             @Override

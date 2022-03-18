@@ -3,7 +3,7 @@
     android:layout_width="280dp"
     android:layout_height="150dp"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/customborder2"
+    android:background="@drawable/customborder4"
     android:orientation="horizontal"
     android:layout_marginTop="20dp"
     android:layout_marginLeft="10dp"

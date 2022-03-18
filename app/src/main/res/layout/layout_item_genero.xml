@@ -17,20 +17,14 @@
         android:layout_marginLeft="20dp"
         >
         <TextView
+            android:fontFamily="sans-serif-condensed-medium"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Genero"
             android:textSize="25dp"
             android:textColor="@color/white"
             android:id="@+id/tvGenero"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cantidad"
-            android:textSize="15dp"
-            android:textColor="@color/white"
-            android:id="@+id/tvCantidadGenero"
             />
 
     </LinearLayout>

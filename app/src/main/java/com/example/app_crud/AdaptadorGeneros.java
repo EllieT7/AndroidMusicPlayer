@@ -30,7 +30,6 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
     public void onBindViewHolder(@NonNull ViewDataHolder holder, int position) {
         //holder.ivFoto.setImageResource(lista.get(position).getSrc());
         holder.tvGenero.setText(lista.get(position).getDescripcion());
-        holder.tvCantidad.setText(lista.get(position).getCantidad()+"");
     }
 
     @Override
@@ -44,7 +43,6 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         public ViewDataHolder(@NonNull View itemView) {
             super(itemView);
             tvGenero = itemView.findViewById(R.id.tvGenero);
-            tvCantidad = itemView.findViewById(R.id.tvCantidadGenero);
 
         }
     }
