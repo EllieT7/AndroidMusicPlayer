@@ -63,12 +63,14 @@ public class Controlador {
         return sql.insert("artista",null,valInsert);
     }
 
-    public long createCancion(Cancion cancion, Album album){
+    public long createVenta(Venta venta){
         SQLiteDatabase sql = helper.getWritableDatabase();
         ContentValues valInsert = new ContentValues();
-        valInsert.put("titulo", cancion.getTitulo());
-        valInsert.put("duracion", cancion.getDuracion());
-        return sql.insert("cancion",null,valInsert);
+        valInsert.put("ci", venta.getCi());
+        valInsert.put("cliente", venta.getCliente());
+        valInsert.put("ubicacion",venta.getUbicacion());
+        valInsert.put("album_id_album",venta.getAlbum().getIdAlbum());
+        return sql.insert("venta",null,valInsert);
     }
 
     //Read
@@ -293,6 +295,73 @@ public class Controlador {
         cursor.close();
         return listaArtista;
     }
+
+    public ArrayList<Venta> readAllVentas(){
+        ArrayList<Venta> listaVentas = new ArrayList<>();
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        String [] columnasConsultadas = {"id_venta", "ci","cliente", "ubicacion","album_id_album"};
+        Cursor cursor = sql.query(
+                "venta",
+                columnasConsultadas,
+                null,
+                null,
+                null,
+                null,
+                "id_venta"
+        );
+
+        if(cursor==null){
+            return listaVentas;
+        }
+        if(!cursor.moveToFirst()){
+            return listaVentas;
+        }
+
+        do{
+            int id = cursor.getInt(0);
+            String ci = cursor.getString(1);
+            String cliente = cursor.getString(2);
+            String ubicacion = cursor.getString(3);
+            int idAlbum = cursor.getInt(4);
+            Album album = getAlbumById(idAlbum);
+            Venta venta = new Venta(id,ci,cliente,ubicacion,album);
+            listaVentas.add(venta);
+        }while(cursor.moveToNext());
+        cursor.close();
+        return listaVentas;
+    }
+    public Album getAlbumById(int idAlbum){
+        Album album = null;
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        Cursor cursor = sql.rawQuery("select * from album where id_album="+idAlbum,null);
+        if(cursor==null){
+            return album;
+        }
+        if(!cursor.moveToFirst()){
+            return album;
+        }
+        do{
+            int id = cursor.getInt(0);
+            String nombre = cursor.getString(1);
+            String stringDate = cursor.getString(2);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            java.util.Date fechaUtil = null;
+            try {
+                fechaUtil = dateFormat.parse(stringDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            java.sql.Date fecha = new Date(fechaUtil.getTime());
+            Float precio = cursor.getFloat(3);
+            byte[] src= cursor.getBlob(4);
+            int idArtista = cursor.getInt(5);
+            int idGenero = cursor.getInt(6);
+            ArrayList<Cancion> listaCanciones = getCanciones(id);
+            album = new Album(id,nombre,fecha,precio,getGenero(idGenero), getArtistaAlbum(idArtista), src, listaCanciones);
+        }while(cursor.moveToNext());
+        cursor.close();
+        return album;
+    }
     //Leer todos las canciones
     public ArrayList<Cancion> readAllCanciones(){
         ArrayList<Cancion> listaCanciones= new ArrayList<>();
@@ -328,11 +397,35 @@ public class Controlador {
         return listaCanciones;
     }
     //Delete
-    public int deleteGenero(Genero generoAEliminar){
+    public int deleteGenero(int idGenero){
         SQLiteDatabase baseDeDatos = helper.getWritableDatabase();
-        String campo = "id_genero = ?";
-        String[] argumento = {String.valueOf(generoAEliminar.getIdGenero())};
-        return baseDeDatos.delete("genero",campo, argumento);
+        ArrayList<Album> lista = getAlbumByGenero(idGenero);
+        String[] argumento = {String.valueOf(idGenero)};
+        for(int i=0;i<lista.size();i++){
+            deleteAlbum(lista.get(0).getIdAlbum());
+        }
+        return baseDeDatos.delete("genero","id_genero = ?",argumento);
+    }
+
+    public int deleteAlbum(int idAlbum){
+        SQLiteDatabase baseDeDatos = helper.getWritableDatabase();
+        String campo = "album_id_album = ?";
+        String[] argumento = {String.valueOf(idAlbum)};
+        baseDeDatos.delete("cancion",campo, argumento);
+        baseDeDatos.delete("venta",campo,argumento);
+        campo = "id_album = ?";
+        return baseDeDatos.delete("album",campo, argumento);
+    }
+
+    public int deleteArtista(int idArtista){
+        SQLiteDatabase baseDeDatos = helper.getWritableDatabase();
+        ArrayList<Album> lista = getAlbumByArtista(idArtista);
+        for(int i=0;i<lista.size();i++){
+            deleteAlbum(lista.get(0).getIdAlbum());
+        }
+        String campo = "id_artista = ?";
+        String[] argumento = {String.valueOf(idArtista)};
+        return baseDeDatos.delete("artista",campo, argumento);
     }
 
     //Update
@@ -391,5 +484,72 @@ public class Controlador {
         String campoParaActualizar = "id_genero = ?";
         String[] argumentosParaActualizar = {String.valueOf(genero.getIdGenero())};
         return sql.update("genero",valoresActualizar,campoParaActualizar,argumentosParaActualizar);
+    }
+    public ArrayList<Album> getAlbumByGenero(int idGenero){
+        ArrayList<Album> lista = new ArrayList<>();
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        Cursor cursor = sql.rawQuery("select * from album where genero_id_genero="+idGenero,null);
+        if(cursor==null){
+            return lista;
+        }
+        if(!cursor.moveToFirst()){
+            return lista;
+        }
+        do{
+            int id = cursor.getInt(0);
+            String nombre = cursor.getString(1);
+            String stringDate = cursor.getString(2);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            java.util.Date fechaUtil = null;
+            try {
+                fechaUtil = dateFormat.parse(stringDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            java.sql.Date fecha = new Date(fechaUtil.getTime());
+            Float precio = cursor.getFloat(3);
+            byte[] src= cursor.getBlob(4);
+            int idArtista = cursor.getInt(5);
+            int idGenero2 = cursor.getInt(6);
+            ArrayList<Cancion> listaCanciones = getCanciones(id);
+            Album album = new Album(id,nombre,fecha,precio,getGenero(idGenero2), getArtistaAlbum(idArtista), src, listaCanciones);
+            lista.add(album);
+        }while(cursor.moveToNext());
+        cursor.close();
+        return lista;
+    }
+    public ArrayList<Album> getAlbumByArtista(int idArtista){
+        ArrayList<Album> lista = new ArrayList<>();
+        SQLiteDatabase sql = helper.getReadableDatabase();
+        Cursor cursor = sql.rawQuery("select * from album where artista_id_artista="+idArtista,null);
+        if(cursor==null){
+            return lista;
+        }
+        if(!cursor.moveToFirst()){
+            return lista;
+        }
+        do{
+            int id = cursor.getInt(0);
+            String nombre = cursor.getString(1);
+            String stringDate = cursor.getString(2);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            java.util.Date fechaUtil = null;
+            try {
+                fechaUtil = dateFormat.parse(stringDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            java.sql.Date fecha = new Date(fechaUtil.getTime());
+            Float precio = cursor.getFloat(3);
+            byte[] src= cursor.getBlob(4);
+            int idArtista2 = cursor.getInt(5);
+            int idGenero2 = cursor.getInt(6);
+            ArrayList<Cancion> listaCanciones = getCanciones(id);
+            Album album = new Album(id,nombre,fecha,precio,getGenero(idGenero2), getArtistaAlbum(idArtista2), src, listaCanciones);
+            lista.add(album);
+        }while(cursor.moveToNext());
+        cursor.close();
+        return lista;
+
     }
 }

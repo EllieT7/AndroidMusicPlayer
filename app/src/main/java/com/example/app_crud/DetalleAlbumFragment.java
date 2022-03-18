@@ -113,7 +113,12 @@ public class DetalleAlbumFragment extends Fragment {
         btnVentaCompra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal, new VentaFragment()).commit();
+                Bundle bundle = new Bundle();
+                Album albumSeleccionado = albumRecibido;
+                bundle.putSerializable("album",albumSeleccionado);
+                VentaFragment nuevoFragmentVenta = new VentaFragment();
+                nuevoFragmentVenta.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal,nuevoFragmentVenta).commit();
             }
         });
         return vista;

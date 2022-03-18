@@ -110,6 +110,20 @@ public class AdminEditarAlbumFragment extends Fragment {
         rvlistadoCanciones.setAdapter(adaptador);
         rvlistadoCanciones.setLayoutManager(new GridLayoutManager(this.getContext(),1));
 
+        rvlistadoCanciones.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), rvlistadoCanciones, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Cancion prodElegido = listaCanciones.get(position);
+                baja(prodElegido);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Cancion prodElegido = listaCanciones.get(position);
+                cambio(prodElegido);
+            }
+        }));
+
         spinnerArtistas = vista.findViewById(R.id.spinnerArtista);
         spinnerGeneros = vista.findViewById(R.id.spinnerGenero);
         etPlannedDate = vista.findViewById(R.id.etPlannedDate);
@@ -311,5 +325,61 @@ public class AdminEditarAlbumFragment extends Fragment {
           }
       }
     }
+    void baja(final Cancion objProd){
+        AlertDialog.Builder alertaBaja = new AlertDialog.Builder(getContext());
+        alertaBaja.setTitle("Eliminar cancion");
+        alertaBaja.setMessage(objProd.toString());
+        alertaBaja.setCancelable(false);
+        alertaBaja.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                eliminarCancion(objProd);
+            }
+        });
 
+        alertaBaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alertaBaja.show();
+    }
+
+    void cambio(final Cancion objProd){
+        View subView = LayoutInflater.from(getContext()).inflate(R.layout.layout_add_cancion, null);
+        final EditText etNombre, etDuracion;
+        etNombre = subView.findViewById(R.id.etNombreCancion);
+        etDuracion = subView.findViewById(R.id.etDuracion);
+
+        etNombre.setText(objProd.getTitulo());
+        etDuracion.setText(objProd.getDuracion());
+        AlertDialog.Builder ale =new  AlertDialog.Builder(getContext());
+        ale.setTitle("Editar cancion");
+        ale.setView(subView);
+        ale.setCancelable(false);
+        ale.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                objProd.setTitulo(etNombre.getText().toString());
+                objProd.setDuracion(etDuracion.getText().toString());
+                adaptador.notifyDataSetChanged();
+
+            }
+        });
+
+        ale.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        ale.show();
+
+    }
+    public void eliminarCancion(Cancion cancion){
+        listaCanciones.remove(cancion);
+        adaptador.notifyDataSetChanged();
+    }
 }

@@ -81,6 +81,19 @@ public class AdaptadorAdminArtistas extends RecyclerView.Adapter<AdaptadorAdminA
                 ale.show();
             }
         });
+        holder.btnEliminarArtista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controlador = new Controlador(view.getContext());
+                int res = controlador.deleteArtista(lista.get(position).getIdArtista());
+                if(res<0){
+                    Toast.makeText(view.getContext(), "Error en la baja", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(view.getContext(), "succes, exito enla baja "+res, Toast.LENGTH_LONG).show();
+                    fragment.getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal2, new AdminArtistaFragment()).commit();
+                }
+            }
+        });
 
     }
 

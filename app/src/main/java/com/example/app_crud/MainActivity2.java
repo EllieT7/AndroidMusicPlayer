@@ -40,5 +40,12 @@ public class MainActivity2 extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal2, new AdminGeneroFragment()).commit();
             }
         });
+        btnVentas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal2, new AdminVentaFragment()).commit();
+
+            }
+        });
     }
 }

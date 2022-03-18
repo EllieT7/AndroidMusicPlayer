@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class Helper extends SQLiteOpenHelper {
-    static final String dataBase = "base3";
+    static final String dataBase = "base4";
     static final int verDB = 1;
 
     public Helper(@Nullable Context context) {
@@ -26,10 +26,8 @@ public class Helper extends SQLiteOpenHelper {
         //Tabla genero
         sqLiteDatabase.execSQL("CREATE TABLE genero (id_genero integer NOT NULL CONSTRAINT genero_pk PRIMARY KEY AUTOINCREMENT,descripcion varchar(100) NOT NULL);");
         //Tabla venta
-        sqLiteDatabase.execSQL("CREATE TABLE venta (id_venta integer NOT NULL CONSTRAINT venta_pk PRIMARY KEY AUTOINCREMENT, ci varchar(20) NOT NULL, cliente varchar(100) NOT NULL, ubicacion varchar(200) NOT NULL );");
-        //Tabla venta_album
-        sqLiteDatabase.execSQL("CREATE TABLE venta_album (id_venta_album integer NOT NULL CONSTRAINT venta_album_pk PRIMARY KEY AUTOINCREMENT, cantidad integer NOT NULL, venta_id_venta integer NOT NULL, album_id_album integer NOT NULL, CONSTRAINT venta_album_venta FOREIGN KEY (venta_id_venta) REFERENCES venta (id_venta), CONSTRAINT venta_album_album FOREIGN KEY (album_id_album) REFERENCES album (id_album) );");
-    }
+        sqLiteDatabase.execSQL("CREATE TABLE venta (id_venta integer NOT NULL CONSTRAINT venta_pk PRIMARY KEY AUTOINCREMENT, ci varchar(20) NOT NULL, cliente varchar(100) NOT NULL, ubicacion varchar(200) NOT NULL, album_id_album integer NOT NULL, CONSTRAINT venta_album FOREIGN KEY (album_id_album) REFERENCES album (id_album) );");
+        }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {

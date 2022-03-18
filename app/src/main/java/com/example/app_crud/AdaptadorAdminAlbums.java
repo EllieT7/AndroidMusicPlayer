@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -22,6 +23,7 @@ public class AdaptadorAdminAlbums extends RecyclerView.Adapter<AdaptadorAdminAlb
 
     ArrayList<Album> lista;
     FragmentActivity fragment;
+    Controlador controlador;
 
     public AdaptadorAdminAlbums(FragmentActivity fragment, ArrayList<Album> lista) {
         this.lista = lista;
@@ -57,6 +59,19 @@ public class AdaptadorAdminAlbums extends RecyclerView.Adapter<AdaptadorAdminAlb
 
             }
         });
+        holder.btnEliminarAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controlador = new Controlador(view.getContext());
+                int res = controlador.deleteAlbum(lista.get(position).getIdAlbum());
+                if(res<0){
+                    Toast.makeText(view.getContext(), "Error en la baja", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(view.getContext(), "succes, exito enla baja "+res, Toast.LENGTH_LONG).show();
+                    fragment.getSupportFragmentManager().beginTransaction().replace(R.id.layout_principal2, new AdminAlbumFragment()).commit();
+                }
+            }
+        });
 
     }
 
@@ -77,7 +92,7 @@ public class AdaptadorAdminAlbums extends RecyclerView.Adapter<AdaptadorAdminAlb
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             tvArtista = itemView.findViewById(R.id.tvArtista);
             btnEditarAlbum = itemView.findViewById(R.id.btnEditarAlbum);
-            btnEliminarAlbum = itemView.findViewById(R.id.btnAgregarAlbum);
+            btnEliminarAlbum = itemView.findViewById(R.id.btnEliminarAlbum);
 
 
         }

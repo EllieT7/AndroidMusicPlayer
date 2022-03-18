@@ -7,21 +7,21 @@ public class Venta {
     private String ci;
     private String cliente;
     private String ubicacion;
-    private ArrayList<Album> listaAlbumes = new ArrayList<>();
+    private Album album;
 
-    public Venta(int idVenta, String ci, String cliente, String ubicacion, ArrayList<Album> listaAlbumes) {
+    public Venta(int idVenta, String ci, String cliente, String ubicacion, Album album) {
         this.idVenta = idVenta;
         this.ci = ci;
         this.cliente = cliente;
         this.ubicacion = ubicacion;
-        this.listaAlbumes = listaAlbumes;
+        this.album = album;
     }
 
-    public Venta(String ci, String cliente, String ubicacion, ArrayList<Album> listaAlbumes) {
+    public Venta(String ci, String cliente, String ubicacion, Album album) {
         this.ci = ci;
         this.cliente = cliente;
         this.ubicacion = ubicacion;
-        this.listaAlbumes = listaAlbumes;
+        this.album = album;
     }
 
     public int getIdVenta() {
@@ -56,11 +56,11 @@ public class Venta {
         this.ubicacion = ubicacion;
     }
 
-    public ArrayList<Album> getListaAlbumes() {
-        return listaAlbumes;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setListaAlbumes(ArrayList<Album> listaAlbumes) {
-        this.listaAlbumes = listaAlbumes;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 }
